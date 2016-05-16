@@ -1,3 +1,47 @@
+<?php
+
+require_once "functions.php";
+$user=new loginRegistration();
+
+
+	 if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+		 $username=$_POST['username'];
+	     $password=$_POST['password'];
+		  $name=$_POST['name'];
+		  $email=$_POST['email'];
+		  $website=$_POST['website'];
+		 
+		 if(empty($username)or empty($password)or empty($name)or empty($email)or empty($website) ){
+		 
+			 echo "please fill the form";
+		 
+		 }else{
+		    $password=md5($password);
+			$register=$user->registerUser($username,$password,$name,$email,$website);
+			 if($register){
+			 echo"registration complete <a href='login.php'>click here</a>For login..";
+			 
+			 }else{
+			 
+			 echo"username or email already exist";
+			 }
+		 
+		 }
+	 
+	 } 
+	  
+	  
+	  ?>
+
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -23,6 +67,7 @@
     <![endif]-->
   </head>
   <body>
+  
   <div class="container">
   	<div class="row">
   		<div class="col-md-12">
@@ -45,7 +90,7 @@
    	<div class="row">
    		<div class="col-md-12">
    			<div class="form">
-   	  <form>
+   	  <form action="" method="post" >
   <div class="form-group">
     <label for="exampleInputName2">Name</label>
     <input class="form-control" id="exampleInputName2" name ="name" placeholder="Type your Name" type="text">
@@ -55,16 +100,16 @@
     <input class="form-control" id="exampleInputEmail2" name ="email" placeholder="type your email" type="email">
   </div>
   <div class="form-group">
-    <label for="exampleInputEmail2">username</label>
-    <input class="form-control" id="exampleInputEmail2" name ="username" placeholder="Type your username" type="email">
+    <label for="exampleInputName2">username</label>
+    <input class="form-control" id="exampleInputName2" name ="username" placeholder="Type your username" type="text">
   </div>
    <div class="form-group">
     <label for="exampleInputEmail2">password</label>
-    <input class="form-control" type="password"id="exampleInputEmail2" name ="password" placeholder="Type your password" type="email">
+    <input class="form-control" type="password"id="exampleInputEmail2" name ="password" placeholder="Type your password" >
   </div>
    <div class="form-group">
     <label for="exampleInputEmail2">website</label>
-    <input class="form-control" type="text" id="exampleInputEmail2" name ="website"  placeholder="Type your website" type="email">
+    <input class="form-control" type="text" id="exampleInputEmail2" name ="website"  placeholder="Type your website" >
   </div>
   <button type="submit" class="btn btn-primary" name="register" >Register</button>
   <button type="submit" class="btn btn-primary" name="register" >Reset</button>
